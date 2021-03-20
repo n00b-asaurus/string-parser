@@ -1,3 +1,6 @@
+def pop(string):
+	return string[0], string[1:]
+
 class Sequence:
 	def __init__(self, nodes, function):
 		self.nodes = nodes
@@ -11,11 +14,17 @@ class Sequence:
 		if string == "":
 			return self.function, arguments
 		raise SyntaxError()
+		
 
 class LiteralString:
 	def __init__(self, string):
 		self.string = string
 	
 	def parse(self, string):
-		if string == self.string:
-			return None, ""
+		buffer = ""
+		while True:
+			character, string = pop(string)
+			if character not in [" "]:
+				buffer += character
+			if buffer == self.string:
+				return None, string

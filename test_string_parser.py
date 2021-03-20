@@ -10,3 +10,11 @@ class TestStringParser(TestCase):
 		function, arguments = parser.parse("Hello")
 		self.assertEqual(function, hello)
 		self.assertEqual(arguments, [])
+		
+	def test_parse_multiple_literal_string(self):
+		def hello_world(): pass
+		parser = StringParser()
+		parser.register(Sequence([LiteralString("Hello"),LiteralString("World")],hello_world))
+		function, arguments = parser.parse("Hello World")
+		self.assertEqual(function, hello_world)
+		self.assertEqual(arguments, [])
